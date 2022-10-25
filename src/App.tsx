@@ -1,13 +1,16 @@
 import './App.css';
 
-import { DatePicker } from 'antd';
+import React from 'react';
+import { useRequest } from './hooks/use-http.hook';
 
-function App() {
-  return (
-    <div className="App">
-      <DatePicker />
-    </div>
-  );
-}
+const App: React.FC = () => {
+  const [response, , sendHttpRequest] = useRequest();
+
+  sendHttpRequest({
+    url: 'https://jsonplaceholder.typicode.com/todos/1',
+  });
+
+  return <div>{JSON.stringify(response)}</div>;
+};
 
 export default App;

@@ -1,16 +1,27 @@
 import './App.css';
 
-import React from 'react';
+import { AxiosError, AxiosResponse } from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useRequest } from './hooks/use-http.hook';
 
 const App: React.FC = () => {
-  const [response, , sendHttpRequest] = useRequest();
+  const [data, setData] = useState({});
+  const [sendHttpRequest] = useRequest();
 
-  sendHttpRequest({
-    url: 'https://jsonplaceholder.typicode.com/todos/1',
-  });
+  useEffect(() => {
+    sendHttpRequest({
+      url: 'https://jsonplaceholder.typicode.com/todos/1',
+    })
+      .then((response: AxiosResponse) => {
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch((error: AxiosError) => {
+        console.log(error.response);
+      });
+  }, []);
 
-  return <div>{JSON.stringify(response)}</div>;
+  return <div>{JSON.stringify(data)}</div>;
 };
 
 export default App;

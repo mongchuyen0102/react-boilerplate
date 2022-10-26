@@ -1,27 +1,40 @@
 import './App.css';
 
-import { AxiosError, AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useRequest } from './hooks/use-http.hook';
+import { useRequest } from './hooks/use-request.hook';
+import { IUser } from './interfaces/user.interface';
+
+export interface ITodo {
+  id: number;
+  title: string;
+  userId: number;
+  completed: boolean;
+}
 
 const App: React.FC = () => {
-  const [data, setData] = useState({});
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [data, setData] = useState<IUser[]>([]);
   const [sendHttpRequest] = useRequest();
 
   useEffect(() => {
     sendHttpRequest({
-      url: 'https://jsonplaceholder.typicode.com/todos/1',
+      url: '/users',
     })
-      .then((response: AxiosResponse) => {
-        console.log(response.data);
-        setData(response.data);
+      .then((data: IUser[]) => {
+        setData(data);
       })
-      .catch((error: AxiosError) => {
-        console.log(error.response);
+      .catch((error: any) => {
+        console.log(error);
       });
   }, []);
 
-  return <div>{JSON.stringify(data)}</div>;
+  return (
+    <div>
+      {data.map((user, index) => (
+        <h1 key={index}>{user.name}</h1>
+      ))}
+    </div>
+  );
 };
 
 export default App;

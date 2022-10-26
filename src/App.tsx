@@ -30,9 +30,31 @@ const App: React.FC = () => {
 
   return (
     <div>
-      {data.map((user, index) => (
-        <h1 key={index}>{user.name}</h1>
-      ))}
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Website</th>
+          <th>Phone</th>
+          <th>Company</th>
+        </tr>
+
+        {data.map((user, index) => (
+          <tr key={index}>
+            <td>{user.name}</td>
+            <td>{user.username}</td>
+            <td>{user.email}</td>
+            <td>
+              {user.address.street} - {user.address.city}
+            </td>
+            <td>{user.website}</td>
+            <td>{user.phone}</td>
+            <td>{user.company.name}</td>
+          </tr>
+        ))}
+      </table>
     </div>
   );
 };

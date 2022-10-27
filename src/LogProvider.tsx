@@ -31,7 +31,7 @@ const LogProvider = (props: any): any => {
   );
 };
 
-const useLog = (): any => {
+const useLog = (): { errorMessage: string; setErrorMessage: Function } => {
   const context = useContext(LogContext);
   if (typeof context === 'undefined') {
     throw new Error('useLog must be used within a LogProvider');
@@ -39,4 +39,4 @@ const useLog = (): any => {
   return context;
 };
 
-export { LogContext, LogProvider, useLog };
+export { LogProvider, useLog };

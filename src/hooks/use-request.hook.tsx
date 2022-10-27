@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 // TODO: chuyển sang types.ts
 export enum HttpMethod {
@@ -25,9 +25,7 @@ export const useRequest = (): [Function] => {
       method,
       data: JSON.stringify(body),
       headers,
-    })
-      .then((response) => response.data)
-      .catch((error: AxiosError) => error.response);
+    });
   };
 
   return [sendHttpRequest];
